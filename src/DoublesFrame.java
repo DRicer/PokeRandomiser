@@ -45,7 +45,7 @@ public class DoublesFrame extends JFrame implements ActionListener {
         //
         // Set up and add components
         instructionLabel = new JLabel( "Pick a format" );
-        instructionLabel.setIcon(new ImageIcon("src\\Pokemon gifs\\"+ String.format("%03d", 146) + ".gif"));
+        instructionLabel.setIcon(new ImageIcon("src\\Pokemon gifs\\"+ String.format("%03d", 342) + ".gif"));
         panel.add( instructionLabel );
         
         
