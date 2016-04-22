@@ -23,24 +23,42 @@ public class PkmPopup extends JPopupMenu implements ActionListener {
 	    JLabel RerollSlot;
 	    int iterate = 0;
 	    int Evolvable[][];
+	    int Devolvable[][];
 	    
 	    public PkmPopup(JLabel Slot, int Slotnum, int Dexnum){
-	    	Evolvable = new int[339][9];
+	    	Evolvable = new int[337][9];
+	    	Devolvable = new int[354][2];
 	    	GetEvolvable();
+	    	GetDevolvable();
 	        RerollSlot = Slot;
 	        btnReRoll = new JMenuItem("ReRoll");
 	        add(btnReRoll);
-	        btnDevolve = new JMenuItem("Devolve");
-	        add(btnDevolve);
+
 	        if( Dexnum != 0){
-	        for(int i = 0; i < Evolvable.length; ++i){
-	        	if(Evolvable[i][0] == Dexnum ){
+	        	for(int i = 0; i < Devolvable.length; ++i){
+		        	if(Devolvable[i][0] == Dexnum ){
+		        		
+		    	        btnDevolve = new JMenu("Devolve");
+		    	        add(btnDevolve);
+		    	        
+		        		JMenuItem Poke1 = new JMenuItem("");
+		        		btnDevolve.add(Poke1);
+		        		
+		        		Poke1.addActionListener(this);
+		        		Poke1.setActionCommand("" + Devolvable[i][1]);
+		        		Poke1.setIcon(new ImageIcon("src\\Pokemon gifs\\"+ String.format("%03d", Devolvable[i][1]) + ".gif"));
+		        		
+		        		}
+		        	}
+		        }
+		        for(int i = 0; i < Evolvable.length; ++i){
+		        	if(Evolvable[i][0] == Dexnum ){
 	        		
-	    	        btnEvolve = new JMenu("Evolve");
-	    	        add(btnEvolve);
+		        		btnEvolve = new JMenu("Evolve");
+		        		add(btnEvolve);
 	    	        
-	        		JMenuItem Poke1 = new JMenuItem("");
-	        		btnEvolve.add(Poke1);
+		        		JMenuItem Poke1 = new JMenuItem("");
+		        		btnEvolve.add(Poke1);
 	        		
 	        		Poke1.addActionListener(this);
 	        		Poke1.setActionCommand("" + Evolvable[i][1]);
@@ -118,12 +136,11 @@ public class PkmPopup extends JPopupMenu implements ActionListener {
 	        		}
 	        	}
 	        }
-	        }
+
 	        btnReRoll.addActionListener(this);
 	        btnReRoll.setActionCommand("ReRoll");
-	        btnDevolve.addActionListener(this);
-	        btnDevolve.setActionCommand("Devolve");
 	    }
+	        
 	    public void actionPerformed(ActionEvent e) {
 	    	if( e.getActionCommand().equals("ReRoll")){
 	    		timer = new Timer(100, this);
@@ -167,6 +184,31 @@ public class PkmPopup extends JPopupMenu implements ActionListener {
 					int k = 0;
 					while( k < (Lines.length)){
 						Evolvable[i][k] = Integer.parseInt(Lines[k]);
+						++k;
+					}
+					i += 1;
+				}
+				in.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+		
+		public void GetDevolvable(){
+			try {
+				FileReader reader = new FileReader("devolutions.txt");
+				BufferedReader in = new BufferedReader( reader );
+				String Line;
+				int i = 0;
+				while ((Line = in.readLine()) != null){
+					String Lines[] = Line.split(",");
+					int k = 0;
+					while( k < (Lines.length)){
+						Devolvable[i][k] = Integer.parseInt(Lines[k]);
 						++k;
 					}
 					i += 1;

@@ -3,9 +3,12 @@
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,8 +20,8 @@ public class FormatFrame extends JFrame implements ActionListener {
     // question on the assignment sheet.
     
     // Constants
-    private static final int FRAME_WIDTH = 400;
-    private static final int FRAME_HEIGHT = 260;
+    private static final int FRAME_WIDTH = 200;
+    private static final int FRAME_HEIGHT = 150;
     
     // Instance variables -- GUI components
     private JPanel panel;
@@ -33,24 +36,34 @@ public class FormatFrame extends JFrame implements ActionListener {
         //
         // Set up the frame
         setSize( FRAME_WIDTH, FRAME_HEIGHT );
-        
+        setTitle("Format");
+        setLocationRelativeTo(null);
+        setResizable(false);
         //
         // Set up the panel and layout manager
         panel = new JPanel();
-        GridLayout grid = new GridLayout( 0, 1 );  // a one-column layout
+        FlowLayout grid = new FlowLayout( 5, 5, 5 );  // a one-column layout
         panel.setLayout( grid );
         
         add( panel );  // add panel to the JFrame
 
         //
         // Set up and add components
-        instructionLabel = new JLabel( "Pick a format" );
+        instructionLabel = new JLabel( "Pick a format");
+        panel.add( instructionLabel );
+        
+        instructionLabel = new JLabel( "" );
+        instructionLabel.setPreferredSize(new Dimension(50,10));
         panel.add( instructionLabel );
         
         
-        String[] FormatString = {"2 Players", "4 Players"};    
+        String[] FormatString = {"2 Players", "4 Players", "Team Builder"};    
         FormatBox = new JComboBox<Object>(FormatString);
         panel.add( FormatBox );
+        
+        instructionLabel = new JLabel( "" );
+        instructionLabel.setPreferredSize(new Dimension(50,10));
+        panel.add( instructionLabel );
         
         shortenButton = new JButton( "Go!" );
         panel.add( shortenButton );
@@ -70,8 +83,11 @@ public class FormatFrame extends JFrame implements ActionListener {
 			Frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 	        Frame.setVisible( true );
 	        setVisible(false);
-		}else{
-			
+		}else if(FormatBox.getSelectedItem().equals("Team Builder")){
+			JFrame Frame = new TeamBuilderFrame();
+			Frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+	        Frame.setVisible( true );
+	        setVisible(false);
 		}
 		
 		
